@@ -1,5 +1,5 @@
 from dataclasses import dataclass
-
+import random
 
 @dataclass
 class Card:
@@ -29,4 +29,21 @@ def create_deck():
     return deck
 
 
-create_deck()
+def shuffle_deck(deck):
+    cards = deck.cards
+    shuffled_deck = [Card] * 51
+    temp = {set}
+    new_card = True
+    for i in range(0, 51):
+        while new_card:
+            rand = random.randint(0, 51)
+            if rand not in temp:
+                temp.add(rand)
+                shuffled_deck[i] = cards[rand]
+                new_card = False
+        new_card = True
+    deck.cards = shuffled_deck
+
+
+deck = create_deck()
+shuffle_deck(deck)
